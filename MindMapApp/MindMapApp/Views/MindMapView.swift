@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MindMapView: View {
     @StateObject private var viewModel = MindMapViewModel()
@@ -32,7 +33,7 @@ struct MindMapView: View {
                                     state = value.translation
                                 }
                                 .onEnded { value in
-                                    viewModel.offset = CGSize(
+                                    $viewModel.offset = CGSize(
                                         width: viewModel.offset.width + value.translation.width,
                                         height: viewModel.offset.height + value.translation.height
                                     )

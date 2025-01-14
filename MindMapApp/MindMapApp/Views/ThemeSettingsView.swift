@@ -67,5 +67,5 @@ struct ThemePreview: View {
 }
 
 #Preview {
-    ThemeSettingsView()
+    ThemeSettingsView(viewModel: MindMapViewModel())
 }

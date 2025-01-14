@@ -60,5 +60,5 @@ struct NodeEditView: View {
 }
 
 #Preview {
-    NodeEditView()
+    NodeEditView(node: MindMapNode(from: any Decoder as! Decoder), viewModel: MindMapViewModel())
 }

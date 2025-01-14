@@ -21,8 +21,7 @@ struct CollaborationView: View {
                         TextField("Enter your name", text: $newUsername)
                         Button("Join Collaboration") {
                             username = newUsername
-                            let user = CollaborationUser(name: newUsername)
-                            viewModel.collaborators[user.id] = user
+                            let user = CollaborationUser(id: UUID(), name: newUsername, color: .blue, lastActive: Date())
                         }
                         .disabled(newUsername.isEmpty)
                     } else {
@@ -89,5 +88,5 @@ struct CollaborationView: View {
 }
 
 #Preview {
-    CollaborationView()
+    CollaborationView(viewModel: MindMapViewModel())
 }

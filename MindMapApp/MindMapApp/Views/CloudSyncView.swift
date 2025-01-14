@@ -118,5 +118,5 @@ struct CloudSyncView: View {
 }
 
 #Preview {
-    CloudSyncView()
+    CloudSyncView(viewModel: MindMapViewModel())
 }

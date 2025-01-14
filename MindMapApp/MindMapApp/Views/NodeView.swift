@@ -73,5 +73,5 @@ struct NodeView: View {
 }
 
 #Preview {
-    NodeView()
+    NodeView(node: MindMapNode, viewModel: MindMapViewModel)
 }
