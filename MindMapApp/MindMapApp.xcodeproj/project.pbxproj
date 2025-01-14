@@ -251,7 +251,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MindMapApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "$(SRCROOT)/MindMapApp/Resources/Preview \"$(SRCROOT)/MindMapApp/Resources/Preview Assets.xcassets\" Assets.xcassets";
 				DEVELOPMENT_TEAM = 3K7UP6P2LQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -280,7 +280,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MindMapApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "$(SRCROOT)/MindMapApp/Resources/Preview \"$(SRCROOT)/MindMapApp/Resources/Preview Assets.xcassets\" Assets.xcassets";
 				DEVELOPMENT_TEAM = 3K7UP6P2LQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

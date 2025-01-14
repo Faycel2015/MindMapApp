@@ -8,10 +8,13 @@
 import SwiftUI
 
 @main
-struct MindMapAppApp: App {
+struct MindMapApp: App {
+    @StateObject private var viewModel = MindMapViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MindMapView()
+                .environmentObject(viewModel)
         }
     }
 }
