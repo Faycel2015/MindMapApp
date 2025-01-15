@@ -10,14 +10,35 @@ import SwiftUI
 
 class MindMapViewModel: ObservableObject {
     @Published var nodes: [UUID: MindMapNode] = [:]
+    @Published var scale: CGFloat = 1.0
+    @Published var offset: CGSize = .zero
     @Published var attachments: [UUID: [NodeAttachment]] = [:]
     @Published var lastSyncDate: Date?
     @Published var syncStatus: SyncStatus = .idle
     @Published var collaborators: [UUID: CollaborationUser] = [:]
     @Published var changes: [NodeChange] = []
+    @Published var currentTheme: MindMapTheme = .defaultTheme
+    @Published var availableThemes: [MindMapTheme] = [.defaultTheme]
     
     enum SyncStatus {
         case idle, syncing, error(String), success
+    }
+    
+    // Add sync methods
+    func syncToCloud() async {
+        syncStatus = .syncing
+        // Simulate a network call
+        try? await Task.sleep(nanoseconds: 2_000_000_000)
+        syncStatus = .success
+        lastSyncDate = Date()
+    }
+    
+    func syncFromCloud() async {
+        syncStatus = .syncing
+        // Simulate a network call
+        try? await Task.sleep(nanoseconds: 2_000_000_000)
+        syncStatus = .success
+        lastSyncDate = Date()
     }
     
     func exportToFormat(_ format: ExportFormat) async throws -> URL {

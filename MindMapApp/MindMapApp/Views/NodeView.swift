@@ -24,31 +24,17 @@ struct NodeView: View {
     }
     
     private var nodeShape: some View {
-        Group {
-            switch node.shape {
-            case .roundedRect:
-                RoundedRectangle(cornerRadius: 8)
-            case .circle:
-                Circle()
-            case .diamond:
-                Diamond()
-            }
+        ZStack {
+            // Fill the shape
+            node.shape.toShape()
+                .fill(node.color.color.opacity(0.2))
+                .frame(width: 120, height: 80)
+            
+            // Stroke the shape
+            node.shape.toShape()
+                .stroke(node.color.color, lineWidth: 2)
+                .frame(width: 120, height: 80)
         }
-        .fill(node.color.color.opacity(0.2))
-        .frame(width: 120, height: 80)
-        .overlay(
-            Group {
-                switch node.shape {
-                case .roundedRect:
-                    RoundedRectangle(cornerRadius: 8)
-                case .circle:
-                    Circle()
-                case .diamond:
-                    Diamond()
-                }
-            }
-            .stroke(node.color.color, lineWidth: 2)
-        )
     }
     
     private var nodeContent: some View {
@@ -73,5 +59,14 @@ struct NodeView: View {
 }
 
 #Preview {
-    NodeView(node: MindMapNode, viewModel: MindMapViewModel)
+    NodeView(
+        node: MindMapNode(
+            id: UUID(),
+            title: "Example Node",
+            position: .zero,
+            color: .blue,
+            shape: .roundedRect
+        ),
+        viewModel: MindMapViewModel()
+    )
 }

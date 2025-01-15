@@ -18,6 +18,10 @@ struct MindMapNode: Identifiable, Codable {
     var childIds: Set<UUID>
     var attachments: [NodeAttachment] = []
     
+    // Add accessibility properties
+        var accessibilityLabel: String { title }
+        var accessibilityHint: String { "Node in the mind map" }
+    
     init(
         id: UUID = UUID(),
         title: String,

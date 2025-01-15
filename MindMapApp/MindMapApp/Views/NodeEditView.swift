@@ -60,5 +60,15 @@ struct NodeEditView: View {
 }
 
 #Preview {
-    NodeEditView(node: MindMapNode(from: any Decoder as! Decoder), viewModel: MindMapViewModel())
+    let viewModel = MindMapViewModel()
+    let node = MindMapNode(
+        id: UUID(),
+        title: "Example Node",
+        position: CGPoint(x: 100, y: 100),
+        color: .blue,
+        shape: .roundedRect
+    )
+    viewModel.nodes[node.id] = node
+    
+    return NodeEditView(node: node, viewModel: viewModel)
 }
