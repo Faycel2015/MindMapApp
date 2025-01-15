@@ -52,7 +52,7 @@ struct ThemePreview: View {
             HStack {
                 ForEach(theme.nodeColors, id: \.self) { color in
                     Circle()
-                        .fill(color.color)
+                        .fill(color.color) // Ensure color.color is a Color
                         .frame(width: 20, height: 20)
                 }
             }

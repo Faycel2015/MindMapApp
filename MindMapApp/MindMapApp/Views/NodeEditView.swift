@@ -42,10 +42,12 @@ struct NodeEditView: View {
             }
             .navigationTitle("Edit Node")
             .navigationBarItems(
-                leading: Button("Cancel") {
+                leading: Button(action: {
                     presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Cancel")
                 },
-                trailing: Button("Done") {
+                trailing: Button(action: {
                     // Save changes
                     var updatedNode = node
                     updatedNode.title = title
@@ -53,6 +55,8 @@ struct NodeEditView: View {
                     updatedNode.shape = shape
                     viewModel.nodes[node.id] = updatedNode
                     presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Done")
                 }
             )
         }
@@ -70,5 +74,5 @@ struct NodeEditView: View {
     )
     viewModel.nodes[node.id] = node
     
-    return NodeEditView(node: node, viewModel: viewModel)
+    NodeEditView(node: node, viewModel: viewModel)
 }

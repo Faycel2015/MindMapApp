@@ -46,5 +46,5 @@ struct NodeConnectionsView: View {
     viewModel.nodes[parentNode.id] = parentNode
     viewModel.nodes[childNode.id] = childNode
     
-    return NodeConnectionsView(node: parentNode, viewModel: viewModel)
+    NodeConnectionsView(node: parentNode, viewModel: viewModel)
 }
