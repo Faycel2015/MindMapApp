@@ -25,5 +25,5 @@ struct NodeConnectionsView: View {
 }
 
 #Preview {
-    NodeConnectionsView()
+    NodeConnectionsView(node: MindMapNode(from: any Decoder as! Decoder), viewModel: MindMapViewModel())
 }

@@ -28,4 +28,8 @@ struct CollaborationUser: Identifiable, Codable {
     var name: String
     var color: Color
     var lastActive: Date
+    
+    mutating func updateLastActive() {
+           lastActive = Date()
+       }
 }

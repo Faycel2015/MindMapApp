@@ -10,6 +10,20 @@ import SwiftUI
 
 class MindMapViewModel: ObservableObject {
     @Published var nodes: [UUID: MindMapNode] = [:]
+    @Published var attachments: [UUID: [NodeAttachment]] = [:]
+    @Published var lastSyncDate: Date?
+    @Published var syncStatus: SyncStatus = .idle
+    @Published var collaborators: [UUID: CollaborationUser] = [:]
+    @Published var changes: [NodeChange] = []
+    
+    enum SyncStatus {
+        case idle, syncing, error(String), success
+    }
+    
+    func exportToFormat(_ format: ExportFormat) async throws -> URL {
+        // Implement export logic here
+        return URL(fileURLWithPath: "example")
+    }
     
     func addNode(title: String, parentId: UUID?) {
         let newNode = MindMapNode(title: title, parentId: parentId)
@@ -42,5 +56,12 @@ class MindMapViewModel: ObservableObject {
         updateLayout()
     }
     
-    // Remove the empty updateLayout() function
+    func addAttachment(to nodeId: UUID, type: NodeAttachment.AttachmentType, title: String, data: NodeAttachment.AttachmentData) {
+        let newAttachment = NodeAttachment(id: UUID(), type: type, title: title, data: data)
+        attachments[nodeId, default: []].append(newAttachment)
+    }
+    
+    func removeAttachment(_ attachmentId: UUID, from nodeId: UUID) {
+        attachments[nodeId]?.removeAll { $0.id == attachmentId }
+    }
 }

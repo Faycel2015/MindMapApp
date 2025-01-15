@@ -28,4 +28,10 @@ struct MindMapTheme: Codable, Identifiable {
         fontName: "SF Pro",
         connectionStyle: .curved
     )
+    
+    func apply(to node: inout MindMapNode) {
+        if let color = nodeColors.randomElement() {
+            node.color = color
+        }
+    }
 }

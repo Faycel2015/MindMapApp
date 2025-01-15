@@ -28,4 +28,8 @@ enum ExportFormat: String, CaseIterable {
         case .json: return "curlybraces"
         }
     }
+    
+    var fileExtension: String {
+        rawValue
+    }
 }

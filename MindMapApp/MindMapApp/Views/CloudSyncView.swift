@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import SwiftData
+
 
 struct CloudSyncView: View {
     @ObservedObject var viewModel: MindMapViewModel

@@ -34,4 +34,12 @@ struct MindMapNode: Identifiable, Codable {
         self.parentId = parentId
         self.childIds = []
     }
+    
+    mutating func addChild(_ childId: UUID) {
+        childIds.insert(childId)
+    }
+    
+    mutating func removeChild(_ childId: UUID) {
+        childIds.remove(childId)
+    }
 }

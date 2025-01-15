@@ -68,28 +68,36 @@ struct NodeAttachmentsView: View {
                     }
                 }
             }
-            .alert(item: $selectedAttachmentType) { type in
-                switch type {
-                case .link:
-                    return Alert(
-                        title: Text("Add Link"),
-                        message: nil,
-                        primaryButton: .default(Text("Add")) {
+            .alert("Add Attachment", isPresented: Binding<Bool>(
+                get: { selectedAttachmentType != nil },
+                set: { if !$0 { selectedAttachmentType = nil } }
+            )) {
+                if let type = selectedAttachmentType {
+                    switch type {
+                    case .link:
+                        Button("Add") {
                             addLinkAttachment()
-                        },
-                        secondaryButton: .cancel()
-                    )
-                case .note:
-                    return Alert(
-                        title: Text("Add Note"),
-                        message: nil,
-                        primaryButton: .default(Text("Add")) {
+                        }
+                        Button("Cancel", role: .cancel) {}
+                    case .note:
+                        Button("Add") {
                             addNoteAttachment()
-                        },
-                        secondaryButton: .cancel()
-                    )
-                default:
-                    return Alert(title: Text(""))
+                        }
+                        Button("Cancel", role: .cancel) {}
+                    default:
+                        EmptyView()
+                    }
+                }
+            } message: {
+                if let type = selectedAttachmentType {
+                    switch type {
+                    case .link:
+                        Text("Enter the link URL")
+                    case .note:
+                        Text("Enter the note text")
+                    default:
+                        EmptyView()
+                    }
                 }
             }
         }
@@ -131,87 +139,6 @@ struct NodeAttachmentsView: View {
             title: url.lastPathComponent,
             data: .fileReference(url.path)
         )
-    }
-}
-
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var image: UIImage?
-    
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        return picker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        let parent: ImagePicker
-        
-        init(_ parent: ImagePicker) {
-            self.parent = parent
-        }
-        
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let image = info[.originalImage] as? UIImage {
-                parent.image = image
-            }
-            picker.dismiss(animated: true)
-        }
-    }
-}
-
-struct DocumentPicker: UIViewControllerRepresentable {
-    var onPick: (URL) -> Void
-    
-    func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.item], asCopy: true)
-        picker.delegate = context.coordinator
-        return picker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    class Coordinator: NSObject, UIDocumentPickerDelegate {
-        let parent: DocumentPicker
-        
-        init(_ parent: DocumentPicker) {
-            self.parent = parent
-        }
-        
-        func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-            if let url = urls.first {
-                parent.onPick(url)
-            }
-        }
-    }
-}
-
-struct AttachmentRow: View {
-    let attachment: NodeAttachment
-    
-    var body: some View {
-        HStack {
-            switch attachment.type {
-            case .link:
-                Image(systemName: "link")
-            case .note:
-                Image(systemName: "note.text")
-            case .image:
-                Image(systemName: "photo")
-            case .file:
-                Image(systemName: "doc")
-            }
-            Text(attachment.title)
-        }
     }
 }
 
