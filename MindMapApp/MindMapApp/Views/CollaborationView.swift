@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CollaborationView: View {
-    @ObservedObject var viewModel: MindMapViewModel
+    @EnvironmentObject private var viewModel: MindMapViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var newUsername = ""
     @AppStorage("username") private var username: String = ""
@@ -99,5 +99,5 @@ struct CollaborationView: View {
 }
 
 #Preview {
-    CollaborationView(viewModel: MindMapViewModel())
+    CollaborationView()
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct NodeEditView: View {
     let node: MindMapNode
     @ObservedObject var viewModel: MindMapViewModel
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @State private var title: String
     @State private var color: NodeColor
     @State private var shape: NodeShape
@@ -24,7 +24,7 @@ struct NodeEditView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 TextField("Title", text: $title)
                 
@@ -41,25 +41,28 @@ struct NodeEditView: View {
                 }
             }
             .navigationTitle("Edit Node")
-            .navigationBarItems(
-                leading: Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Cancel")
-                },
-                trailing: Button(action: {
-                    // Save changes
-                    var updatedNode = node
-                    updatedNode.title = title
-                    updatedNode.color = color
-                    updatedNode.shape = shape
-                    viewModel.nodes[node.id] = updatedNode
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Done")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
                 }
-            )
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        saveChanges()
+                    }
+                }
+            }
         }
+    }
+    
+    private func saveChanges() {
+        var updatedNode = node
+        updatedNode.title = title
+        updatedNode.color = color
+        updatedNode.shape = shape
+        viewModel.nodes[node.id] = updatedNode
+        dismiss()
     }
 }
 
@@ -74,5 +77,5 @@ struct NodeEditView: View {
     )
     viewModel.nodes[node.id] = node
     
-    NodeEditView(node: node, viewModel: viewModel)
+    return NodeEditView(node: node, viewModel: viewModel)
 }

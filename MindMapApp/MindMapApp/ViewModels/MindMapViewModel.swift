@@ -24,6 +24,20 @@ class MindMapViewModel: ObservableObject {
         case idle, syncing, error(String), success
     }
     
+    init() {
+        // Add some default nodes for testing
+        var rootNode = MindMapNode(title: "Root Node", position: CGPoint(x: 200, y: 200))
+        let childNode1 = MindMapNode(title: "Child Node 1", position: CGPoint(x: 300, y: 300))
+        let childNode2 = MindMapNode(title: "Child Node 2", position: CGPoint(x: 100, y: 300))
+        
+        rootNode.childIds.insert(childNode1.id)
+        rootNode.childIds.insert(childNode2.id)
+        
+        nodes[rootNode.id] = rootNode
+        nodes[childNode1.id] = childNode1
+        nodes[childNode2.id] = childNode2
+    }
+    
     // Add sync methods
     func syncToCloud() async {
         syncStatus = .syncing

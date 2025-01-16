@@ -11,7 +11,7 @@ import SwiftUI
 struct MindMapNode: Identifiable, Codable {
     let id: UUID
     var title: String
-    var position: CGPoint
+    var position: CGPoint // CGPoint already conforms to Codable
     var color: NodeColor
     var shape: NodeShape
     var parentId: UUID?

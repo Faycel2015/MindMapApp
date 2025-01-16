@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NodeAttachmentsView: View {
     let nodeId: UUID
-    @ObservedObject var viewModel: MindMapViewModel
+    @EnvironmentObject private var viewModel: MindMapViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var showingAttachmentPicker = false
     @State private var selectedAttachmentType: NodeAttachment.AttachmentType?
@@ -44,7 +44,7 @@ struct NodeAttachmentsView: View {
                 
                 Section(header: Text("Attachments")) {
                     ForEach(viewModel.attachments[nodeId] ?? []) { attachment in
-                        AttachmentRow(attachment: attachment)
+                        AttachmentRow(attachment: attachment) // Use AttachmentRow here
                     }
                     .onDelete { indexSet in
                         guard let attachments = viewModel.attachments[nodeId] else { return }
@@ -75,11 +75,15 @@ struct NodeAttachmentsView: View {
                 if let type = selectedAttachmentType {
                     switch type {
                     case .link:
+                        TextField("Title", text: $attachmentTitle)
+                        TextField("URL", text: $attachmentUrl)
                         Button("Add") {
                             addLinkAttachment()
                         }
                         Button("Cancel", role: .cancel) {}
                     case .note:
+                        TextField("Title", text: $attachmentTitle)
+                        TextField("Text", text: $attachmentText)
                         Button("Add") {
                             addNoteAttachment()
                         }
@@ -92,9 +96,9 @@ struct NodeAttachmentsView: View {
                 if let type = selectedAttachmentType {
                     switch type {
                     case .link:
-                        Text("Enter the link URL")
+                        Text("Enter the link URL and title")
                     case .note:
-                        Text("Enter the note text")
+                        Text("Enter the note title and text")
                     default:
                         EmptyView()
                     }
@@ -111,6 +115,7 @@ struct NodeAttachmentsView: View {
             title: attachmentTitle,
             data: .url(url)
         )
+        resetAttachmentFields()
     }
     
     private func addNoteAttachment() {
@@ -120,6 +125,7 @@ struct NodeAttachmentsView: View {
             title: attachmentTitle,
             data: .text(attachmentText)
         )
+        resetAttachmentFields()
     }
     
     private func addImageAttachment(_ image: UIImage) {
@@ -130,6 +136,7 @@ struct NodeAttachmentsView: View {
             title: attachmentTitle,
             data: .imageData(data)
         )
+        resetAttachmentFields()
     }
     
     private func addFileAttachment(_ url: URL) {
@@ -139,9 +146,18 @@ struct NodeAttachmentsView: View {
             title: url.lastPathComponent,
             data: .fileReference(url.path)
         )
+        resetAttachmentFields()
+    }
+    
+    private func resetAttachmentFields() {
+        attachmentTitle = ""
+        attachmentText = ""
+        attachmentUrl = ""
+        selectedImage = nil
     }
 }
 
 #Preview {
-    NodeAttachmentsView(nodeId: UUID(), viewModel: MindMapViewModel())
+    NodeAttachmentsView(nodeId: UUID())
+        .environmentObject(MindMapViewModel()) // Provide a viewModel for the preview
 }

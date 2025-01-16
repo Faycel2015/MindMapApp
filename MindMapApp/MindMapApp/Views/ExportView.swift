@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExportView: View {
-    @ObservedObject var viewModel: MindMapViewModel
+    @EnvironmentObject private var viewModel: MindMapViewModel
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -54,5 +54,5 @@ struct ExportView: View {
 }
 
 #Preview {
-    ExportView(viewModel: MindMapViewModel())
+    ExportView()
 }

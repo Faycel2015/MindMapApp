@@ -13,8 +13,8 @@ struct MindMapApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MindMapView()
-                .environmentObject(viewModel)
+            ContentView() // ContentView is now the root view
+                .environmentObject(viewModel) // Pass the viewModel to the environment
         }
     }
 }

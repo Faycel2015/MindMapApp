@@ -10,7 +10,7 @@ import SwiftData
 
 
 struct CloudSyncView: View {
-    @ObservedObject var viewModel: MindMapViewModel
+    @EnvironmentObject private var viewModel: MindMapViewModel
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -120,5 +120,5 @@ struct CloudSyncView: View {
 }
 
 #Preview {
-    CloudSyncView(viewModel: MindMapViewModel())
+    CloudSyncView()
 }

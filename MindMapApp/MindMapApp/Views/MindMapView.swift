@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MindMapView: View {
-    @StateObject private var viewModel = MindMapViewModel()
+    @EnvironmentObject private var viewModel: MindMapViewModel
     @GestureState private var dragOffset: CGSize = .zero
     @GestureState private var scale: CGFloat = 1.0
     
@@ -42,12 +42,12 @@ struct MindMapView: View {
                 
                 // Draw connections between nodes
                 ForEach(Array(viewModel.nodes.values)) { node in
-                    NodeConnectionsView(node: node, viewModel: viewModel)
+                    NodeConnectionsView(node: node) // Remove the viewModel parameter
                 }
                 
                 // Draw nodes
                 ForEach(Array(viewModel.nodes.values)) { node in
-                    NodeView(node: node, viewModel: viewModel)
+                    NodeView(node: node) // Remove the viewModel parameter
                         .position(
                             x: node.position.x * viewModel.scale + viewModel.offset.width + dragOffset.width,
                             y: node.position.y * viewModel.scale + viewModel.offset.height + dragOffset.height
@@ -55,10 +55,18 @@ struct MindMapView: View {
                         .scaleEffect(viewModel.scale * scale)
                 }
             }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+            .background(Color.white) // Add a background color for debugging
+        }
+        .onAppear {
+            // Debugging: Print node information when the view appears
+            print("Nodes: \(viewModel.nodes)")
+            print("Node positions: \(viewModel.nodes.map { $0.value.position })")
         }
     }
 }
 
 #Preview {
     MindMapView()
+        .environmentObject(MindMapViewModel()) // Provide a viewModel for the preview
 }

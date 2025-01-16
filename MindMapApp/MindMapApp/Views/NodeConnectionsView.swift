@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NodeConnectionsView: View {
     let node: MindMapNode
-    @ObservedObject var viewModel: MindMapViewModel
+    @EnvironmentObject private var viewModel: MindMapViewModel // Use @EnvironmentObject
     
     var body: some View {
         ForEach(Array(node.childIds), id: \.self) { childId in
@@ -19,8 +19,6 @@ struct NodeConnectionsView: View {
                     path.addLine(to: childNode.position)
                 }
                 .stroke(node.color.color, lineWidth: 1)
-            } else {
-                EmptyView() // Fallback for when childNode is nil
             }
         }
     }
@@ -46,5 +44,6 @@ struct NodeConnectionsView: View {
     viewModel.nodes[parentNode.id] = parentNode
     viewModel.nodes[childNode.id] = childNode
     
-    NodeConnectionsView(node: parentNode, viewModel: viewModel)
+    return NodeConnectionsView(node: parentNode)
+        .environmentObject(viewModel) // Pass viewModel via environment
 }

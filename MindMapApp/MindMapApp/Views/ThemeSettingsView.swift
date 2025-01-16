@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ThemeSettingsView: View {
-    @ObservedObject var viewModel: MindMapViewModel
+    @EnvironmentObject private var viewModel: MindMapViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var editingTheme: MindMapTheme?
     
@@ -67,5 +67,5 @@ struct ThemePreview: View {
 }
 
 #Preview {
-    ThemeSettingsView(viewModel: MindMapViewModel())
+    ThemeSettingsView()
 }
