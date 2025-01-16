@@ -31,15 +31,13 @@ An **Interactive Mind Mapping App** built with **SwiftUI**. This app allows user
 
 ## Screenshots
 
-![MindMapApp Screenshot 1](screenshots/screenshot1.png)
-![MindMapApp Screenshot 2](screenshots/screenshot2.png)
+![MindMapApp Screenshot 1](screenshots/MindMap_Dashboard.png)
+![MindMapApp Screenshot 2](screenshots/Mind_Maps.png)
+![MindMapApp Screenshot 3](screenshots/MindMap_Collaboration.png)
+![MindMapApp Screenshot 4](screenshots/Settings.png)
+![MindMapApp Screenshot 4](screenshots/Theme_Settings.png)
+![MindMapApp Screenshot 5](screenshots/Cloud_Sync.png)
 
-MindMap_Dashboard.png
-MindMap_Collaboration.png
-MindMap_Dashboard.png
-Theme_Settings.png
-Cloud_Sync.png
-Settings.png
 ---
 
 ## Requirements
